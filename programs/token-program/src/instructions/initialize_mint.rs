@@ -22,7 +22,7 @@ impl<'info> InitializeMint<'info> {
     pub fn init_mint(
         &mut self,
         freeze_authority: Option<Pubkey>,
-        mint_authrity: Option<Pubkey>,
+        mint_authority: Option<Pubkey>,
         decimals: u8,
         supply: u64,
     ) -> Result<()> {
