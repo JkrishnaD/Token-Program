@@ -22,11 +22,10 @@ impl<'info> InitializeMint<'info> {
     pub fn init_mint(
         &mut self,
         freeze_authority: Option<Pubkey>,
+        mint_authority: Option<Pubkey>,
         decimals: u8,
         supply: u64,
     ) -> Result<()> {
-        let mint_authority = self.owner.key();
-
         self.mint_account.set_inner(MintAccount {
             mint_authority,
             freeze_authority,

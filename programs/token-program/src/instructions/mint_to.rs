@@ -8,7 +8,7 @@ pub struct MintTo<'info> {
     #[account(mut)]
     pub mint_authority: Signer<'info>,
 
-    #[account(mut,has_one=mint_authority)]
+    #[account(mut)]
     pub mint_account: Account<'info, MintAccount>,
 
     // the token which we are trying to mint
@@ -25,9 +25,8 @@ pub struct MintTo<'info> {
 impl<'info> MintTo<'info> {
     // mint the tokens into the mint account
     pub fn mint_to(&mut self, amount: u64) -> Result<()> {
-        require_eq!(
-            self.mint_account.mint_authority,
-            self.mint_authority.key(),
+        require!(
+            self.mint_account.mint_authority == Some(self.mint_authority.key()),
             ProgramErrors::InvalidAuthority
         );
 
