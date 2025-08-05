@@ -17,7 +17,7 @@ declare_id!("5rGzLLT482QKhnXdFqf9g2UpZDLsBCXjKH7R9Q3bkbRC");
 pub mod token_program {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+    pub fn initialize(ctx: Context<InitializeMint>) -> Result<()> {
+        Ok(())
     }
 }
