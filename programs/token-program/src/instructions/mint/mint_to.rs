@@ -16,7 +16,11 @@ pub struct MintTo<'info> {
     pub spl_mint: Account<'info, Mint>,
 
     // account where the actual token are stored
-    #[account(mut)]
+    #[account(mut,
+        associated_token::mint = spl_mint,
+        associated_token::authority = mint_account,
+        associated_token::token_program = token_program
+    )]
     pub mint_ata: Account<'info, TokenAccount>,
 
     pub token_program: Program<'info, Token>,
