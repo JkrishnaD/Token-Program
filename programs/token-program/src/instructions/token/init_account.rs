@@ -34,7 +34,7 @@ pub struct InitAccount<'info> {
     #[account(
         init,
         payer = user,
-        space = TokenAccount::INIT_SPACE,
+        space = 8 + TokenAccount::INIT_SPACE,
         seeds = [b"token_account",spl_mint.key().as_ref(),user.key().as_ref()],
         bump
     )]
