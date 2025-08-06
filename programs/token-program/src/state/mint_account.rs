@@ -8,4 +8,5 @@ pub struct MintAccount {
     pub decimals: u8,                     // mint token decimals
     pub supply: u64,                      // the total supply of the account
     pub is_initialized: bool,             // flag to ensure the account is initialized or not
+    pub bump: u8,                       // bump seed for PDA
 }

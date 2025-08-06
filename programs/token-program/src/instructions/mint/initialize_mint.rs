@@ -12,6 +12,8 @@ pub struct InitializeMint<'info> {
         init,
         payer = owner,
         space= 8 + MintAccount::INIT_SPACE,
+        seeds = [b"mint_account", owner.key().as_ref()],
+        bump
     )]
     pub mint_account: Account<'info, MintAccount>,
 
@@ -25,6 +27,7 @@ impl<'info> InitializeMint<'info> {
         mint_authority: Option<Pubkey>,
         decimals: u8,
         supply: u64,
+        bumps: &InitializeMintBumps,
     ) -> Result<()> {
         self.mint_account.set_inner(MintAccount {
             mint_authority,
@@ -32,6 +35,7 @@ impl<'info> InitializeMint<'info> {
             decimals,
             supply,
             is_initialized: true,
+            bump: bumps.mint_account,
         });
         Ok(())
     }
