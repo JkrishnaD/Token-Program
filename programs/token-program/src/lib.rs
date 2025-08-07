@@ -20,4 +20,8 @@ pub mod token_program {
     pub fn initialize(ctx: Context<InitializeMint>) -> Result<()> {
         Ok(())
     }
+
+    pub fn token_transfer(ctx: Context<TokenTransfer>, amount: u64) -> Result<()> {
+        ctx.accounts.transfer(amount)
+    }
 }
