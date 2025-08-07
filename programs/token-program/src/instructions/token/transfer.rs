@@ -33,8 +33,8 @@ impl<'info> TokenTransfer<'info> {
         require!(to.mint == mint.key(), ProgramErrors::MintMismatch);
 
         // ensuring both the accounts are not frozen
-        require!(from.is_frozen != false, ProgramErrors::FrozenAccount);
-        require!(to.is_frozen != false, ProgramErrors::FrozenAccount);
+        require!(from.is_frozen == false, ProgramErrors::FrozenAccount);
+        require!(to.is_frozen == false, ProgramErrors::FrozenAccount);
 
         // ensuring the owner of the from account is the same as the signer
         // if not we can't perform the transaction
