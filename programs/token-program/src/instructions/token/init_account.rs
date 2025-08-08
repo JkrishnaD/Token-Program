@@ -1,57 +1,40 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{
-    associated_token::AssociatedToken,
-    token::{Mint, Token, TokenAccount as SplTokenaccount},
-};
 
 use crate::{MintAccount, TokenAccount};
 
 #[derive(Accounts)]
-pub struct InitAccount<'info> {
+pub struct InitTokenAccount<'info> {
+    // the one who is paying for the account creation
     #[account(mut)]
-    pub user: Signer<'info>,
+    pub payer: Signer<'info>,
 
-    // the account which holds the mint
-    #[account(
-        seeds = [b"mint_account", user.key().as_ref()],
-        bump = mint_account.bump
-    )]
+    // the mint account that the token account will be associated with
     pub mint_account: Account<'info, MintAccount>,
 
-    // the mint tokens
-    pub spl_mint: Account<'info, Mint>,
-
-    // the account which stores the token of the user which are issues in the token account
-    #[account(
-        init_if_needed,
-        payer = user,
-        associated_token::mint = spl_mint,
-        associated_token::authority = user,
-    )]
-    pub token_ata: Account<'info, SplTokenaccount>,
-
-    // the token account which is used to store the user's token data
+    // the token account that will be created
     #[account(
         init,
-        payer = user,
+        payer = payer,
         space = 8 + TokenAccount::INIT_SPACE,
-        seeds = [b"token_account",spl_mint.key().as_ref(),user.key().as_ref()],
+        seeds = [b"token_account",mint_account.key().as_ref(),owner.key().as_ref()],
         bump
     )]
     pub token_account: Account<'info, TokenAccount>,
 
+    /// CHECK: this is just used for the pda derivation and stored as a pubkey, no read/writes are done
+    pub owner: AccountInfo<'info>,
+
     pub system_program: Program<'info, System>,
-    pub token_program: Program<'info, Token>,
-    pub associated_token_program: Program<'info, AssociatedToken>,
 }
 
-impl<'info> InitAccount<'info> {
-    pub fn init_token_account(&mut self) -> Result<()> {
+impl<'info> InitTokenAccount<'info> {
+    pub fn init_token_account(&mut self,bumps:&InitTokenAccountBumps) -> Result<()> {
+        // creating the mint account
         self.token_account.set_inner(TokenAccount {
             amount: 0,
             mint: self.mint_account.key(),
-            owner: self.user.key(),
-            bump: self.token_account.bump,
+            owner: self.owner.key(),
+            bump: bumps.token_account,
             is_initialized: true,
             is_frozen: false,
             delegate: None,
