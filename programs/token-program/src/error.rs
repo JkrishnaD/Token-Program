@@ -16,4 +16,6 @@ pub enum ProgramErrors {
     UninitializedAccount,
     #[msg("Authority Doesn't exist")]
     AuthorityDoesNotExist,
+    #[msg("Insufficient balance in the account")]
+    InsufficientBalance,
 }
