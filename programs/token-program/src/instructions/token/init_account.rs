@@ -16,13 +16,10 @@ pub struct InitTokenAccount<'info> {
         init,
         payer = payer,
         space = 8 + TokenAccount::INIT_SPACE,
-        seeds = [b"token_account",mint_account.key().as_ref(),owner.key().as_ref()],
+        seeds = [b"token_account",mint_account.key().as_ref(),payer.key().as_ref()],
         bump
     )]
     pub token_account: Account<'info, TokenAccount>,
-
-    /// CHECK: this is just used for the pda derivation and stored as a pubkey, no read/writes are done
-    pub owner: AccountInfo<'info>,
 
     pub system_program: Program<'info, System>,
 }
@@ -33,7 +30,7 @@ impl<'info> InitTokenAccount<'info> {
         self.token_account.set_inner(TokenAccount {
             amount: 0,
             mint: self.mint_account.key(),
-            owner: self.owner.key(),
+            owner: self.payer.key(),
             bump: bumps.token_account,
             is_initialized: true,
             is_frozen: false,

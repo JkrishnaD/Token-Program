@@ -12,4 +12,8 @@ pub enum ProgramErrors {
     FrozenAccount,
     #[msg("Insufficient funds in the account")]
     InsufficientFunds,
+    #[msg("Account not initialized")]
+    UninitializedAccount,
+    #[msg("Authority Doesn't exist")]
+    AuthorityDoesNotExist,
 }
