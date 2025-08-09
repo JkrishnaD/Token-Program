@@ -22,4 +22,10 @@ pub enum ProgramErrors {
     AlreadyFrozen,
     #[msg("Not frozen yet to unfreeze")]
     NotFrozenYet,
+    #[msg("Invalid amount")]
+    InvalidAmount,
+    #[msg("Insufficient delegate balance")]
+    InsufficientDelegateAmount,
+    #[msg("Invalid delegate authority")]
+    InvalidDelegate
 }
