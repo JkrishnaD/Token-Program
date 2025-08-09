@@ -18,4 +18,8 @@ pub enum ProgramErrors {
     AuthorityDoesNotExist,
     #[msg("Insufficient balance in the account")]
     InsufficientBalance,
+    #[msg("Already the account is frozen")]
+    AlreadyFrozen,
+    #[msg("Not frozen yet to unfreeze")]
+    NotFrozenYet,
 }
