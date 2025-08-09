@@ -25,7 +25,7 @@ impl<'info> Freeze<'info> {
         Ok(())
     }
 
-    pub fn unfreeze_account(&mut self) -> Result<()> {
+    pub fn thaw_account(&mut self) -> Result<()> {
         // checking if the token account is already unfrozen
         require!(!self.token_account.is_frozen, ProgramErrors::NotFrozenYet);
 

@@ -10,7 +10,6 @@ pub struct TokenAccount {
     pub delegate_amount: u64,     // the amount you delegate to the third-party
     pub is_frozen: bool,          // to freeze the account
     pub is_initialized: bool,     // flag to ensure the account is initialized or not
-    pub close_authority: Option<Pubkey>, // the person who can close the account
     pub bump: u8,
 }
 // bump is used in the tokenAccount not in the mintAccount because here mintAccount is created by the keypair

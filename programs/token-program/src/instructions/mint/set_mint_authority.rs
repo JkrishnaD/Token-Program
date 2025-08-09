@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 use crate::{error::ProgramErrors, MintAccount};
 
 #[derive(Accounts)]
-pub struct MintAuthorityAccount<'info> {
+pub struct SetMintAuthority<'info> {
     #[account(mut)]
     pub mint_authority: Signer<'info>,
 
@@ -15,7 +15,7 @@ pub struct MintAuthorityAccount<'info> {
     pub new_authority: Option<AccountInfo<'info>>,
 }
 
-impl<'info> MintAuthorityAccount<'info> {
+impl<'info> SetMintAuthority<'info> {
     pub fn set_mint_authority(&mut self, new_authority: Option<Pubkey>) -> Result<()> {
         // checking for the mint authority
         // if that exist then we can allow the mint authority to change the mint authority

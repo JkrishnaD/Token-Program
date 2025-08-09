@@ -23,10 +23,10 @@ pub struct InitializeMint<'info> {
 impl<'info> InitializeMint<'info> {
     pub fn init_mint(
         &mut self,
-        freeze_authority: Option<Pubkey>,
-        mint_authority: Option<Pubkey>,
-        decimals: u8,
         supply: u64,
+        decimals: u8,
+        mint_authority: Option<Pubkey>,
+        freeze_authority: Option<Pubkey>,
         bumps: &InitializeMintBumps,
     ) -> Result<()> {
         self.mint_account.set_inner(MintAccount {
